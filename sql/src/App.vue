@@ -1,25 +1,40 @@
 <script setup>
-import { onMounted, ref } from "vue";
-import Account from "./components/accountpage.vue";
-import Auth from "./components/authpart.vue";
-import { supabase } from "./supabase";
+import { ref, onMounted } from "vue";
+import { supabase } from "./lib/supabase.js";
 
-const session = ref();
+const countries = ref([]);
+
+async function getCountries() {
+  const { data } = await supabase.from("countries").select();
+  countries.value = data;
+}
+async function addCountry() {
+  const { data } = await supabase
+    .from("countries")
+    .insert({ id: 1, name: "Denmark" })
+    .select();
+  countries.value = data;
+}
+
+async function delCountry() {
+  const { data } = await supabase
+    .from("countries")
+    .select()
+    .not("name", "is", null)
+    .delete()
+    .eq("id", "name");
+  countries.value = data;
+}
 
 onMounted(() => {
-  supabase.auth.getSession().then(({ data }) => {
-    session.value = data.session;
-  });
-
-  supabase.auth.onAuthStateChange((_, _session) => {
-    session.value = _session;
-  });
+  getCountries();
 });
 </script>
 
 <template>
-  <div class="container" style="padding: 50px 0 100px 0">
-    <accountpage v-if="session" :session="session" />
-    <authpart v-else />
+  <div>
+    <div v-for="country in countries" :key="country.id">
+      {{ country.name }} <button @click="delCountry()"></button>
+    </div>
   </div>
 </template>
