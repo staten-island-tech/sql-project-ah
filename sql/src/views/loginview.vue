@@ -2,13 +2,17 @@
   <div>
     <input type="email" placeholder="email" v-model="email" />
     <input type="password" placeholder="Password" v-model="password" />
-    <button @click="signUp()">sign up</button>
+    <button @click="signUp()">sign up</button>\
+    <div v-for="country in countries" :key="country.id">
+      {{ country.name }}
+    </div>
+    <button @click="getCountries()"></button>
   </div>
 </template>
 
 <script setup>
 import { supabase } from "../client/supabase.js";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 const email = ref("");
 const password = ref("");
 
@@ -24,8 +28,16 @@ async function signUp() {
       console.log(data);
     }
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
+}
+const names = ref([]);
+
+const countries = ref([]);
+
+async function getCountries() {
+  const { data } = await supabase.from("countries").select();
+  countries.value = data;
 }
 </script>
 
