@@ -7,13 +7,16 @@
           ><button class="button">go to login</button></router-link
         >
       </div>
+      <router-link to="/page" class="router"
+        ><button class="button">go to countries list</button></router-link
+      >
     </div>
   </body>
 </template>
 
 <script></script>
 
-<style langscoped>
+<style scoped>
 .button {
   color: aquamarine;
   background-color: cadetblue;

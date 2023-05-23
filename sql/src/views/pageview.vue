@@ -4,12 +4,13 @@
     <div v-for="country in countries" :key="country.id">
       {{ country.name }}
     </div>
-    <button @click="getCountries()"></button>
+    <button @click="getCountries()" class="button">button</button>
   </div>
 </template>
 
 <script setup>
 import { supabase } from "../client/supabase.js";
+import { ref } from "vue";
 const countries = ref([]);
 
 async function getCountries() {
@@ -17,4 +18,9 @@ async function getCountries() {
   countries.value = data;
 }
 </script>
-<style scoped></style>
+<style scoped>
+.button {
+  color: aquamarine;
+  background-color: cadetblue;
+}
+</style>

@@ -8,7 +8,7 @@
 
 <script setup>
 import { supabase } from "../client/supabase.js";
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 const email = ref("");
 const password = ref("");
 
