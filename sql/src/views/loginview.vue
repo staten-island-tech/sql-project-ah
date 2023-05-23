@@ -2,11 +2,7 @@
   <div>
     <input type="email" placeholder="email" v-model="email" />
     <input type="password" placeholder="Password" v-model="password" />
-    <button @click="signUp()">sign up</button>\
-    <div v-for="country in countries" :key="country.id">
-      {{ country.name }}
-    </div>
-    <button @click="getCountries()"></button>
+    <button @click="signUp()">sign up</button>
   </div>
 </template>
 
@@ -32,13 +28,6 @@ async function signUp() {
   }
 }
 const names = ref([]);
-
-const countries = ref([]);
-
-async function getCountries() {
-  const { data } = await supabase.from("countries").select();
-  countries.value = data;
-}
 </script>
 
 <style scoped></style>
