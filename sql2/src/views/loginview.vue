@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <input type="email" placeholder="email" v-model="email" />
+    <input type="email" placeholder="email" v-model="email" />
     <input type="password" placeholder="Password" v-model="password" />
     <button @click="signUp()">sign up</button><button @click="login()">login</button
     ><button @click="logout()">log out</button>
@@ -13,11 +14,17 @@ import { supabase } from '../client/supabase.js'
 import { ref } from 'vue'
 const email = ref('')
 const password = ref('')
+const name = ref('')
 async function signUp() {
   try {
     const { data, error } = await supabase.auth.signUp({
       email: email.value,
-      password: password.value
+      password: password.value,
+      Option: {
+        data: {
+          First_name: name.value
+        }
+      }
     })
     if (error) {
       console.log(error)
@@ -33,7 +40,12 @@ async function login() {
   try {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email.value,
-      password: password.value
+      password: password.value,
+      Option: {
+        data: {
+          First_name: name.value
+        }
+      }
     })
     if (error) {
       console.log(error)
