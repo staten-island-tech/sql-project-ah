@@ -11,5 +11,5 @@ export const useUserStore = defineStore('user', () => {
     user.value.email = newuser.email
     user.value.password = newuser.password
   }
-  return { user, website, userdata }
+  return { user, userdata }
 })

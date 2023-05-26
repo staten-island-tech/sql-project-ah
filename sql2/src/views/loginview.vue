@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <input type="email" placeholder="email" v-model="email" />
+    <input type="text" placeholder="name" v-model="name" />
     <input type="email" placeholder="email" v-model="email" />
     <input type="password" placeholder="Password" v-model="password" />
     <button @click="signUp()">sign up</button><button @click="login()">login</button
@@ -12,6 +12,7 @@
 <script setup>
 import { supabase } from '../client/supabase.js'
 import { ref } from 'vue'
+
 const email = ref('')
 const password = ref('')
 const name = ref('')

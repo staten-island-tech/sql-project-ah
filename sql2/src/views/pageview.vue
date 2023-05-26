@@ -5,18 +5,22 @@
       {{ country.name }}
     </div>
     <button @click="getCountries()" class="button">button</button>
+    <button @click="checksession()">check</button>
   </div>
 </template>
 
 <script setup>
-import { supabase } from "../client/supabase.js";
-import { createPinia } from "pinia";
-import { ref } from "vue";
-const countries = ref([]);
+import { supabase } from '../client/supabase.js'
+import { ref } from 'vue'
+const countries = ref([])
 
+async function checksession() {
+  const currentuser = await supabase.auth.getSession()
+  console.log(currentuser.data.session)
+}
 async function getCountries() {
-  const { data } = await supabase.from("countries").select();
-  countries.value = data;
+  const { data } = await supabase.from('countries').select()
+  countries.value = data
 }
 </script>
 <style scoped>
