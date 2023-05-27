@@ -1,73 +1,62 @@
 <template>
   <div class="container">
-    <input type="text" placeholder="name" v-model="name" />
     <input type="email" placeholder="email" v-model="email" />
     <input type="password" placeholder="Password" v-model="password" />
     <button @click="signUp()">sign up</button><button @click="login()">login</button
     ><button @click="logout()">log out</button>
     <button @click="checksession()">check</button>
+    <router-link to="/" class="router">go back</router-link>
   </div>
 </template>
 
 <script setup>
-import { supabase } from '../client/supabase.js'
+import { useSupabaseStore } from '../stores/pinia.js'
 import { ref } from 'vue'
+
+const store = useSupabaseStore()
 
 const email = ref('')
 const password = ref('')
-const name = ref('')
+
 async function signUp() {
   try {
-    const { data, error } = await supabase.auth.signUp({
-      email: email.value,
-      password: password.value,
-      Option: {
-        data: {
-          First_name: name.value
-        }
-      }
-    })
+    const { data, error } = await store.signUp(email.value, password.value)
     if (error) {
       console.log(error)
     } else {
       console.log(data)
-      ;(email.value = ''), (password.value = '')
     }
   } catch (error) {
     console.log(error)
   }
 }
+
 async function login() {
   try {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email.value,
-      password: password.value,
-      Option: {
-        data: {
-          First_name: name.value
-        }
-      }
-    })
+    const { data, error } = await store.login(email.value, password.value)
     if (error) {
       console.log(error)
     } else {
       console.log(data)
-      ;(email.value = ''), (password.value = '')
     }
   } catch (error) {
     console.log(error)
   }
 }
+
 async function checksession() {
-  const currentuser = await supabase.auth.getSession()
-  console.log(currentuser.data.session)
-}
-async function logout() {
-  const { error } = await supabase.auth.signOut()
-  if (error) {
+  try {
+    await store.checkSession()
+  } catch (error) {
     console.log(error)
-  } else {
-    console.log('logged out')
+  }
+}
+
+async function logout() {
+  try {
+    await store.logout()
+  } catch (error) {
+    console.log(error)
   }
 }
 </script>
