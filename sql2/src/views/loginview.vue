@@ -1,11 +1,17 @@
 <template>
   <div class="container">
-    <input type="email" placeholder="email" v-model="email" />
-    <input type="password" placeholder="Password" v-model="password" />
-    <button @click="signUp()">sign up</button><button @click="login()">login</button
-    ><button @click="logout()">log out</button>
-    <button @click="checksession()">check</button>
-    <router-link to="/" class="router">go back</router-link>
+    <h2>Login Page</h2>
+    <form class="form">
+      <input type="email" placeholder="Email" v-model="email" />
+      <input type="password" placeholder="Password" v-model="password" />
+      <div class="buttons">
+        <button @click="signUp()" class="button">Sign up</button>
+        <button @click="login()" class="button">Login</button>
+        <button @click="logout()" class="button">Log out</button>
+        <button @click="checkSession()" class="button">Check</button>
+      </div>
+    </form>
+    <router-link to="/" class="router">Go back</router-link>
   </div>
 </template>
 
@@ -20,12 +26,7 @@ const password = ref('')
 
 async function signUp() {
   try {
-    const { data, error } = await store.signUp(email.value, password.value)
-    if (error) {
-      console.log(error)
-    } else {
-      console.log(data)
-    }
+    await store.signUp(email.value, password.value)
   } catch (error) {
     console.log(error)
   }
@@ -33,18 +34,13 @@ async function signUp() {
 
 async function login() {
   try {
-    const { data, error } = await store.login(email.value, password.value)
-    if (error) {
-      console.log(error)
-    } else {
-      console.log(data)
-    }
+    await store.login(email.value, password.value)
   } catch (error) {
     console.log(error)
   }
 }
 
-async function checksession() {
+async function checkSession() {
   try {
     await store.checkSession()
   } catch (error) {
@@ -63,7 +59,57 @@ async function logout() {
 
 <style scoped>
 .container {
-  border: 2px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 2px solid #adaadd;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.form input {
+  width: 250px;
+  height: 40px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #adaadd;
+  border-radius: 5px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  color: white;
+  background-color: #adaadd;
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background-color: #adadad;
+}
+
+.router {
+  color: white;
+  background-color: #adadad;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+.router:hover {
+  background-color: #adaadd;
 }
 </style>
