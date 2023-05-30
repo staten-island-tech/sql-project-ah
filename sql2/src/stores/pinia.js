@@ -84,7 +84,7 @@ export const useSupabaseStore = defineStore('supabase', {
 
     async fetchNotes() {
       try {
-        const { data, error } = await supabase.from('notes').select('*')
+        const { data, error } = await supabase.from('notes').select(user.id)
         if (error) {
           console.log(error)
         } else {

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h2>Login Page</h2>
-    <form class="form">
+    <div class="form">
       <input type="email" placeholder="Email" v-model="email" />
       <input type="password" placeholder="Password" v-model="password" />
       <div class="buttons">
@@ -10,7 +10,7 @@
         <button @click="logout()" class="button">Log out</button>
         <button @click="checkSession()" class="button">Check</button>
       </div>
-    </form>
+    </div>
     <router-link to="/" class="router">Go back</router-link>
   </div>
 </template>
