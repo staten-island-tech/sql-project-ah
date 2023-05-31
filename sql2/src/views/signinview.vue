@@ -1,15 +1,13 @@
 <template>
   <div class="container">
-    <h2>Login Page</h2>
+    <h2>signin</h2>
     <div class="form">
       <input type="email" placeholder="Email" v-model="email" />
       <input type="password" placeholder="Password" v-model="password" />
       <div class="buttons">
-        <button @click="login()" class="button">Login</button>
-        <button @click="logout()" class="button">Log out</button>
+        <button @click="signUp()" class="button">Sign up</button>
         <button @click="checkSession()" class="button">Check</button>
       </div>
-      <p>Don't have a account? click <router-link to="/signin">here</router-link></p>
     </div>
     <router-link to="/" class="router">Go back</router-link>
   </div>
@@ -24,25 +22,16 @@ const store = useSupabaseStore()
 const email = ref('')
 const password = ref('')
 
-async function login() {
+async function signUp() {
   try {
-    await store.login(email.value, password.value)
+    await store.signUp(email.value, password.value)
   } catch (error) {
     console.log(error)
   }
 }
-
 async function checkSession() {
   try {
     await store.checkSession()
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-async function logout() {
-  try {
-    await store.logout()
   } catch (error) {
     console.log(error)
   }

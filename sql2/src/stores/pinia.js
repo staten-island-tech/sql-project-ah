@@ -18,6 +18,7 @@ export const useSupabaseStore = defineStore('supabase', {
           console.log(error)
         } else {
           this.user = data
+          console.log('signed in')
         }
       } catch (error) {
         console.log(error)
@@ -34,6 +35,7 @@ export const useSupabaseStore = defineStore('supabase', {
           console.log(error)
         } else {
           this.user = data
+          console.log('logged in')
         }
       } catch (error) {
         console.log(error)
@@ -84,7 +86,7 @@ export const useSupabaseStore = defineStore('supabase', {
 
     async fetchNotes() {
       try {
-        const { data, error } = await supabase.from('notes').select(user.id)
+        const { data, error } = await supabase.from('notes').select()
         if (error) {
           console.log(error)
         } else {

@@ -4,9 +4,14 @@ import pageview from './views/pageview.vue'
 import loginview from './views/loginview.vue'
 import openview from './views/openview.vue'
 import errorview from './views/errorview.vue'
+import signinview from './views/signinview.vue'
 let localUser
 
 const routes = [
+  {
+    path: '/signin',
+    component: signinview
+  },
   {
     path: '/',
     component: openview
@@ -45,4 +50,5 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
+
 export default router
