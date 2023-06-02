@@ -58,9 +58,9 @@ export const useSupabaseStore = defineStore('supabase', {
         console.log(error)
       }
     },
-    async createNote({ title, content }) {
+    async createNote({ title, content, note_id }) {
       try {
-        const { error } = await supabase.from('notes').insert([{ title, content }])
+        const { error } = await supabase.from('notes').insert([{ title, content, note_id }])
         if (error) {
           console.log(error)
         } else {

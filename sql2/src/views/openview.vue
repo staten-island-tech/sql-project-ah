@@ -17,6 +17,7 @@ async function checksession() {
   const currentuser = await supabase.auth.getSession()
   console.log(currentuser.data.session)
 }
+
 const store = useSupabaseStore()
 async function logout() {
   try {

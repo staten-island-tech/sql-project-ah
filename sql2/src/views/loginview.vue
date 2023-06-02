@@ -12,6 +12,7 @@
       <p>Don't have a account? click <router-link to="/signin">here</router-link></p>
     </div>
     <router-link to="/" class="router">Go back</router-link>
+    <div id="error"></div>
   </div>
 </template>
 
@@ -20,15 +21,15 @@ import { useSupabaseStore } from '../stores/pinia.js'
 import { ref } from 'vue'
 
 const store = useSupabaseStore()
-
+const error = ref('')
 const email = ref('')
 const password = ref('')
-
 async function login() {
   try {
     await store.login(email.value, password.value)
   } catch (error) {
     console.log(error)
+    document.getElementById('error').innerHTML = error
   }
 }
 

@@ -2,7 +2,8 @@
   <div class="container">
     <div>
       <router-link to="/" class="router">go back</router-link>
-      <button @click="checksession()">check</button>
+      <button @click="getperson()">check</button>
+      <p>{{ person.id }}</p>
     </div>
     <div class="note-maker">
       <h2>Create Note</h2>
@@ -24,6 +25,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useSupabaseStore } from '../stores/pinia.js'
+import { supabase } from '../client/supabase.js'
 const store = useSupabaseStore()
 const notes = ref([])
 const newNote = ref({ title: '', content: '' })
@@ -34,7 +36,12 @@ async function checksession() {
     console.log(error)
   }
 }
-
+const person = ref([])
+async function getperson() {
+  const { data } = await supabase.from('users').select()
+  person.value = data
+  console.log(data)
+}
 async function createNote() {
   const { title, content } = newNote.value
   try {
