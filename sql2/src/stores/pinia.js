@@ -3,7 +3,6 @@ import { supabase } from '../client/supabase.js'
 
 export const useSupabaseStore = defineStore('supabase', {
   state: () => ({
-    userNotes: [],
     user: null,
     error: null
   }),
@@ -18,7 +17,6 @@ export const useSupabaseStore = defineStore('supabase', {
           console.log(error)
         } else {
           this.user = data
-          console.log('signed in')
         }
       } catch (error) {
         console.log(error)
@@ -35,7 +33,7 @@ export const useSupabaseStore = defineStore('supabase', {
           console.log(error)
         } else {
           this.user = data
-          console.log('logged in')
+          this.userId = data.id
         }
       } catch (error) {
         console.log(error)
@@ -58,18 +56,6 @@ export const useSupabaseStore = defineStore('supabase', {
         console.log(error)
       }
     },
-    async createNote({ title, content, note_id }) {
-      try {
-        const { error } = await supabase.from('notes').insert([{ title, content, note_id }])
-        if (error) {
-          console.log(error)
-        } else {
-          console.log('Note created')
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    },
 
     async deleteNote(id) {
       try {
@@ -78,20 +64,6 @@ export const useSupabaseStore = defineStore('supabase', {
           console.log(error)
         } else {
           console.log('Note deleted successfully')
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    },
-
-    async fetchNotes() {
-      try {
-        const { data, error } = await supabase.from('notes').select()
-        if (error) {
-          console.log(error)
-        } else {
-          console.log('Fetched notes')
-          this.userNotes = data || []
         }
       } catch (error) {
         console.log(error)
