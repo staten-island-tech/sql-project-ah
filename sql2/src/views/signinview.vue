@@ -16,18 +16,28 @@
 <script setup>
 import { useSupabaseStore } from '../stores/pinia.js'
 import { ref } from 'vue'
-
+import { useRouter } from 'vue-router'
 const store = useSupabaseStore()
-
+const router = useRouter()
 const email = ref('')
 const password = ref('')
 async function signUp() {
   try {
-    await store.signUp(email.value, password.value)
+    const { data, error } = await supabase.auth.signUp(
+      (email = email.value),
+      (password = password.value)
+    )
+    if (error) {
+      console.log(error)
+    } else {
+      store.setuser(data)
+      router.push({ path: '/' })
+    }
   } catch (error) {
     console.log(error)
   }
 }
+
 async function checkSession() {
   try {
     await store.checkSession()

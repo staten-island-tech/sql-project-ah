@@ -12,6 +12,7 @@
       <p>Don't have a account? click <router-link to="/signin">here</router-link></p>
     </div>
     <router-link to="/" class="router">Go back</router-link>
+    <div id="bob"></div>
   </div>
 </template>
 
@@ -19,11 +20,11 @@
 import { useSupabaseStore } from '../stores/pinia.js'
 import { ref } from 'vue'
 import { supabase } from '../client/supabase.js'
+import { useRouter } from 'vue-router'
 const store = useSupabaseStore()
-const error = ref('')
 const email = ref('')
 const password = ref('')
-
+const router = useRouter()
 async function login() {
   try {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -34,7 +35,8 @@ async function login() {
       console.log(error)
     } else {
       console.log(data)
-      this.$router.push({ path: '/' })
+      store.setuser(data)
+      router.push({ path: '/' })
     }
   } catch (error) {
     console.log(error)
@@ -42,16 +44,17 @@ async function login() {
 }
 
 async function checkSession() {
-  try {
-    await store.checkSession()
-  } catch (error) {
-    console.log(error)
+  if (store.isloggedin) {
+    document.getElementById('bob').innerHTML = 'done'
+  } else {
+    document.getElementById('bob').innerHTML = 'fail'
   }
 }
 
 async function logout() {
   try {
     await store.logout()
+    router.push({ path: '/' })
   } catch (error) {
     console.log(error)
   }
