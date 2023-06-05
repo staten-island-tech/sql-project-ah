@@ -12,24 +12,32 @@
       <p>Don't have a account? click <router-link to="/signin">here</router-link></p>
     </div>
     <router-link to="/" class="router">Go back</router-link>
-    <div id="error"></div>
   </div>
 </template>
 
 <script setup>
 import { useSupabaseStore } from '../stores/pinia.js'
 import { ref } from 'vue'
-
+import { supabase } from '../client/supabase.js'
 const store = useSupabaseStore()
 const error = ref('')
 const email = ref('')
 const password = ref('')
+
 async function login() {
   try {
-    await store.login(email.value, password.value)
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email.value,
+      password: password.value
+    })
+    if (error) {
+      console.log(error)
+    } else {
+      console.log(data)
+      this.$router.push({ path: '/' })
+    }
   } catch (error) {
     console.log(error)
-    document.getElementById('error').innerHTML = error
   }
 }
 

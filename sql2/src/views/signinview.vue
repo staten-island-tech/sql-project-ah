@@ -21,7 +21,6 @@ const store = useSupabaseStore()
 
 const email = ref('')
 const password = ref('')
-
 async function signUp() {
   try {
     await store.signUp(email.value, password.value)

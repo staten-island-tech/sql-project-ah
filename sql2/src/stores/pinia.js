@@ -4,7 +4,8 @@ import { supabase } from '../client/supabase.js'
 export const useSupabaseStore = defineStore('supabase', {
   state: () => ({
     user: null,
-    error: null
+    error: null,
+    message: null
   }),
   actions: {
     async signUp(email, password) {
@@ -23,7 +24,7 @@ export const useSupabaseStore = defineStore('supabase', {
       }
     },
 
-    async login(email, password) {
+    async  login(email, password) {
       try {
         const { data, error } = await supabase.auth.signInWithPassword({
           email,
@@ -33,7 +34,8 @@ export const useSupabaseStore = defineStore('supabase', {
           console.log(error)
         } else {
           this.user = data
-          this.userId = data.id
+          this.message = 'logged in'
+          router.push({ path: '/' })
         }
       } catch (error) {
         console.log(error)
