@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2>signin</h2>
+    <h2>Sign In</h2>
     <div class="form">
       <input type="email" placeholder="Email" v-model="email" />
       <input type="password" placeholder="Password" v-model="password" />

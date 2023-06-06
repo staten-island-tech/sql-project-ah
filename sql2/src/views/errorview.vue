@@ -11,7 +11,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 705px;
+  height: 950px;
   background-color: #f5f5f5;
 }
 

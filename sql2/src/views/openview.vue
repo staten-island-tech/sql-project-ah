@@ -17,15 +17,15 @@
 <script setup>
 import { useSupabaseStore } from '../stores/pinia.js'
 import { onMounted } from 'vue'
+const store = useSupabaseStore()
 async function checksession() {
   if (store.isloggedin) {
-    document.getElementById('bob').innerHTML = 'logged in'
+    document.getElementById('bobby').insertAdjacentHTML('beforebegin', 'logged in')
   } else {
-    document.getElementById('bob').innerHTML = 'please log in'
+    document.getElementById('bobby').insertAdjacentHTML('beforebegin', 'please log in')
   }
 }
 
-const store = useSupabaseStore()
 async function logout() {
   try {
     await store.logout(), checksession()
@@ -35,6 +35,7 @@ async function logout() {
 }
 onMounted(() => {
   checksession()
+  console.log(store.isloggedin)
 })
 </script>
 
@@ -50,7 +51,6 @@ h1 {
   top: 20px;
   right: 20px;
   color: #adadad;
-  font-weight: bold;
 }
 .router {
   color: white;
