@@ -2,7 +2,6 @@
   <div class="container">
     <div>
       <router-link to="/" class="router">go back</router-link>
-      <button @click="fetchNotes()">check</button>
     </div>
     <div class="note-maker">
       <h2>Create Note</h2>

@@ -2,7 +2,8 @@
   <div class="home">
     <h1>Note Making Website</h1>
     <div id="bob">
-      <div><button v-if="store.isloggedin" @click="logout()" class="button">Log out</button></div>
+      <div id="bobby"></div>
+      <button v-if="store.isloggedin" @click="logout()" class="button">Log out</button>
     </div>
     <div class="buttons">
       <router-link to="/login" class="router">Go to Login</router-link>
@@ -20,9 +21,11 @@ import { onMounted } from 'vue'
 const store = useSupabaseStore()
 async function checksession() {
   if (store.isloggedin) {
-    document.getElementById('bobby').insertAdjacentHTML('beforebegin', 'logged in')
+    document.getElementById('bobby').innerHTML = ''
+    document.getElementById('bobby').insertAdjacentHTML('afterbegin', 'logged in')
   } else {
-    document.getElementById('bobby').insertAdjacentHTML('beforebegin', 'please log in')
+    document.getElementById('bobby').innerHTML = ''
+    document.getElementById('bobby').insertAdjacentHTML('afterbegin', 'please log in')
   }
 }
 

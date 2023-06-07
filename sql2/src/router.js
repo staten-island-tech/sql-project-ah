@@ -5,8 +5,8 @@ import loginview from './views/loginview.vue'
 import openview from './views/openview.vue'
 import errorview from './views/errorview.vue'
 import signinview from './views/signinview.vue'
+import { useSupabaseStore } from './stores/pinia.js'
 let localUser
-
 const routes = [
   {
     path: '/signin',
@@ -37,7 +37,8 @@ const router = createRouter({
 })
 async function getUser(next) {
   localUser = await supabase.auth.getSession()
-  if (localUser.data.session == null) {
+  const store = useSupabaseStore()
+  if (localUser.data.session == null || store.isloggedin == null) {
     next('/error')
   } else {
     next()
