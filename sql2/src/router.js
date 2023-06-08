@@ -38,7 +38,7 @@ const router = createRouter({
 async function getUser(next) {
   localUser = await supabase.auth.getSession()
   const store = useSupabaseStore()
-  if (localUser.data.session == null || store.isloggedin == null) {
+  if (localUser.data.session == null || store.isloggedin === false) {
     next('/error')
   } else {
     next()
