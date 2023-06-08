@@ -5,8 +5,10 @@
     </div>
     <div class="note-maker">
       <h2>Create Note</h2>
-      <input type="text" v-model="newNote.title" placeholder="Title" />
-      <textarea v-model="newNote.content" placeholder="Content" class="content"></textarea>
+      <div class="note-input">
+        <input type="text" v-model="newNote.title" placeholder="Title" />
+        <textarea v-model="newNote.content" placeholder="Content" class="content"></textarea>
+      </div>
       <button @click="createNote()" class="button">Create</button>
     </div>
     <h2 class="h2">Notes</h2>
@@ -19,7 +21,6 @@
     </div>
   </div>
 </template>
-
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useSupabaseStore } from '../stores/pinia.js'
@@ -114,12 +115,10 @@ onMounted(async () => {
 }
 
 .note-card:hover {
-  background-color: #f5f5f5;
+  background-color: rgba(183, 169, 191);
+  box-shadow: 0 2px 4px #f5f5f5;
 }
-.h2 {
-  text-align: center;
-  background-color: bisque;
-}
+
 .note-maker {
   max-width: 400px;
   margin: 0 auto;
@@ -127,6 +126,13 @@ onMounted(async () => {
   background-color: #f5f5f5;
   border-radius: 5px;
 }
+
+.note-input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
 .router {
   color: white;
   background-color: #adadad;
@@ -134,7 +140,15 @@ onMounted(async () => {
   border-radius: 5px;
   text-decoration: none;
 }
+
 .router:hover {
   background-color: #adaadd;
+}
+
+.h2 {
+  width: 100%;
+  height: 2px;
+  background-color: #ccc;
+  margin: 20px 0;
 }
 </style>
